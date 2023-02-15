@@ -73,4 +73,52 @@ func TestNegativeEmployeeID(t *testing.T) {
 
 		g.Expect(err.Error()).To(gomega.Equal("Bad employee ID format"))
 	})
+
+	t.Run("Negative Employee ID Case 5", func(t *testing.T) {
+		e := Employee{
+			Name:       "nattawut Rodthong",
+			Email:      "nattavutnon@gmail.com",
+			EmployeeID: "S12345678SD",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).NotTo(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Bad employee ID format"))
+	})
+
+	t.Run("Negative Employee ID Case 6", func(t *testing.T) {
+		e := Employee{
+			Name:       "nattawut Rodthong",
+			Email:      "nattavutnon@gmail.com",
+			EmployeeID: "S12345s67",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).NotTo(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Bad employee ID format"))
+	})
+
+	t.Run("Negative Employee ID Case 7", func(t *testing.T) {
+		e := Employee{
+			Name:       "nattawut Rodthong",
+			Email:      "nattavutnon@gmail.com",
+			EmployeeID: "S12sssss345ssss67",
+		}
+
+		ok, err := govalidator.ValidateStruct(e)
+
+		g.Expect(ok).NotTo(gomega.BeTrue())
+
+		g.Expect(err).NotTo(gomega.BeNil())
+
+		g.Expect(err.Error()).To(gomega.Equal("Bad employee ID format"))
+	})
 }
